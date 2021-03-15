@@ -263,7 +263,11 @@ def read_meta_data(md_file):
         md = fid.read()
     d = {}
     for a in md.splitlines():
-        k, v = a.split('=')
+        try:   # For meta files that have been changed by catGT
+            k, v = a.split('=')  
+        except:
+            continue
+                
         # if all numbers, try to interpret the string
         if v and re.fullmatch('[0-9,.]*', v) and v.count('.') < 2:
             v = [float(val) for val in v.split(',')]
