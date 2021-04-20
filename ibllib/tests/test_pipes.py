@@ -35,6 +35,7 @@ class TestExtractors2Tasks(unittest.TestCase):
             ("passive_opto", "ephys"),
             ("_iblrig_tasks_opto_ephysChoiceWorld", "ephys_biased_opto"),
             ("_iblrig_tasks_opto_biasedChoiceWorld", "biased_opto"),
+            ("_iblrig_tasks_FPChoiceWorld", "biased")
         ]
         for to in task_out:
             out = ibllib.io.extractors.base.get_task_extractor_type(to[0])
