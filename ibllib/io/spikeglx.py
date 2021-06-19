@@ -457,7 +457,7 @@ def _conversion_sample2v_from_meta(meta_data):
         else:
             # NP 2.0; APGain = 80 for all AP
             # return 0 for LFgain (no LF channels)
-            out = {'lf': np.hstack((np.zeros(n_chn), sy_gain)),
+            out = {'lf': np.hstack((int2volt / 80 * np.ones(n_chn).astype(np.float32), sy_gain)),
                    'ap': np.hstack((int2volt / 80 * np.ones(n_chn).astype(np.float32), sy_gain))}
 
     # nidaq gain can be read in the same way regardless of NP1.0 or NP2.0
