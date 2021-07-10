@@ -398,9 +398,12 @@ def _get_type_from_meta(md):
     """
     snsApLfSy = md.get('snsApLfSy', [-1, -1, -1])
     if snsApLfSy[0] == 0 and snsApLfSy[1] != 0:
-        return 'lf'
+        return 'lf'   # NP1.0, snsApLfSy = (0,384,1) --> lf
+    elif int(md['imDatPrb_type']) > 0 and md['imSampRate'] < 3000:
+        return 'lf'   # For NP2.0, snsApLfSy is also (384,0,1) for lf. Use imSampRate instead (lf: 2500 Hz)
+                      # In fact, imSampRate may be a better criterion for both 1.0 and 2.0 probes
     elif snsApLfSy[0] != 0 and snsApLfSy[1] == 0:
-        return 'ap'
+        return 'ap'   # otherwise, if snsApLfSy = (384,0,1), must be ap.
     elif snsApLfSy == [-1, -1, -1] and md.get('typeThis', None) == 'nidq':
         return 'nidq'
 
