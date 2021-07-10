@@ -337,7 +337,11 @@ def _get_neuropixel_version_from_meta(md):
     """
     Get neuropixel version tag (3A, 3B1, 3B2) from the metadata dictionary
     """
-    if 'imDatPrb_dock' in md.keys():
+    # if 'imDatPrb_dock' in md.keys():
+    # This is no longer a proper criterion of NP 2.0 (my NP1.0 meta files also have this)
+    # Instead, should use imDatPrb_type: {0=NP1.0, 21=NP2.0(1-shank), 24=NP2.0(4-shank)}.
+    # https://github.com/billkarsh/SpikeGLX/blob/master/Markdown/Metadata_30.md
+    if int(md['imDatPrb_type']) > 0:
         return 'NP2.0'
     elif 'typeEnabled' in md.keys():
         return '3A'
